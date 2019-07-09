@@ -10,8 +10,8 @@ type RootProps = {
 // All routes define here.
 const Root: React.FC<RootProps> = ({store}) => (<Provider store={store}>
   <Router>
-      <Route exact path="/" component={Home} />
-      <Route path={"/admin"} component={Admin} />
+    <Route exact path='/' component={Home} />
+    <Route path={'/admin'} component={Admin} />
   </Router>
 </Provider>);
 

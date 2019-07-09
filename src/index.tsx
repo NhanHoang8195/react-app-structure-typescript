@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Root from './containers/App';
 import store from './store';
 
-import * as serviceWorker from './serviceWorker'
+import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(<Root store={store} />, document.getElementById('root'));
 

@@ -1,14 +1,14 @@
 import { Map } from 'immutable';
 import {
-    HOME_GET_DATA_START,
-    HOME_GET_DATA_SUCCESS,
-    HOME_GET_DATA_FAILURE,
+  HOME_GET_DATA_START,
+  HOME_GET_DATA_SUCCESS,
+  HOME_GET_DATA_FAILURE,
 } from './type';
 
 const initialState = Map({
-    data: null,
-    isLoadingData: false,
-    error: null,
+  data: null,
+  isLoadingData: false,
+  error: null,
 });
 const handlerMaps = {};
 

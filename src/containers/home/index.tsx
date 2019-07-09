@@ -6,6 +6,10 @@ import './App.scss';
 
 function App(props) {
   function handleClick() {
+    const a =[1, 2];
+    if (a ===0 ) { // asdkfjla
+      console.log(a);
+    }
     props.actions.getData();
   }
   return (
