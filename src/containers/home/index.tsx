@@ -4,12 +4,14 @@ import { connect } from 'react-redux';
 import * as actions from './actions';
 import './App.scss';
 
-function App(props) {
+type AppProps = {
+  actions: {
+    getData: Function
+  },
+  isLoadingData: boolean,
+}
+function App(props: AppProps): JSX.Element {
   function handleClick() {
-    const a =[1, 2];
-    if (a ===0 ) { // asdkfjla
-      console.log(a);
-    }
     props.actions.getData();
   }
   return (
@@ -23,7 +25,7 @@ const mapStateToProps = state => ({
   isLoadingData: state.homeReducer.get('isLoadingData'),
 });
 const mapDispatchToProps = dispatch => ({
-  actions: bindActionCreators({...actions}, dispatch),
+  actions: bindActionCreators({ ...actions }, dispatch),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);
