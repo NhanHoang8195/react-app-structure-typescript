@@ -1,48 +1,55 @@
+import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
 import {
-  HOME_GET_DATA_START,
-  HOME_GET_DATA_SUCCESS,
-  HOME_GET_DATA_FAILURE,
+  GET_LIST_USER_START,
+  GET_LIST_USER_SUCCESS,
+  GET_LIST_USER_FAILURE,
+  HomepageActionTypes
 } from './type';
-import { HTTP, API_URL } from '../../constants';
+import { REQUEST_METHODS, API_URL, request } from '../../api';
 
 /**
  * Handle action get data successfully.
+ * @param {string} type of action.
  * @param {object} data. Data receive from  axios(res.data)
- * @returns {{payload: object, type: string}} Object need to dispatch action success.
+ * @returns {object} Object need to dispatch action success.
  */
-function handleSuccess(data: object): object {
+function handleSuccess(type: string, data: object): HomepageActionTypes {
   return {
-    type: HOME_GET_DATA_SUCCESS,
+    type,
     payload: data,
   };
 }
 /**
  * Handle action get data failure.
+ * @param {string} type of action.
  * @param {object} error. Error.
  * @returns {object} Object need to dispatch action failure.
  */
-function handleFailure(error: object): object {
+function handleFailure(type: string, error: object): HomepageActionTypes {
   return {
-    type: HOME_GET_DATA_FAILURE,
+    type,
     error,
   };
 }
 
-export function getData(): Function {
+/**
+ * ActionCreators that return a function.
+ * @returns {Function} the function that will be implement by redux-thunk.
+ */
+export function getListUser(): ThunkAction<void, {}, null, Action<string>> {
   return (dispatch) => {
     const options = {
-      url: API_URL.GET_HOME_PAGE_DATA_URL,
-      method: HTTP.METHOD_GET,
-      handlers: {
-        success: handleSuccess,
-        failure: handleFailure,
-      }
+      url: API_URL.LIST_USER_URL,
+      method: REQUEST_METHODS.GET,
     };
-    dispatch({
-      type: HOME_GET_DATA_START,
-      [HTTP.HTTP_REQUEST]: {
-        options
-      }
-    });
+    dispatch({ type: GET_LIST_USER_START });
+    request.doRequest(options)
+      .then(data => {
+        dispatch(handleSuccess(GET_LIST_USER_SUCCESS, data));
+      })
+      .catch(error => {
+        dispatch(handleFailure(GET_LIST_USER_FAILURE, error));
+      });
   };
 }

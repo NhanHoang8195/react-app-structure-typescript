@@ -1,15 +1,25 @@
-export const HOME_GET_DATA_START = 'HOME_GET_DATA';
-export const HOME_GET_DATA_SUCCESS = 'HOME_GET_DATA_SUCCESS';
-export const HOME_GET_DATA_FAILURE = 'HOME_GET_DATA_FAILURE';
+import { Map } from 'immutable';
+// get list user events
+export const GET_LIST_USER_START = 'GET_LIST_USER_START';
+export const GET_LIST_USER_SUCCESS = 'GET_LIST_USER_SUCCESS';
+export const GET_LIST_USER_FAILURE = 'GET_LIST_USER_FAILURE';
 
-// this file declare types for state in reducers.
-export interface HomeState {
-  data: object,
+
+// Declare types for state in reducers.
+export interface HomepageState extends Map<string, Array<object> | object | boolean> {
+  data: Array<object> | null,
   isLoadingData: boolean,
   error: object,
 }
 
-interface GetDataAction {
-  type: typeof HOME_GET_DATA_START,
-  payload: object
+// Declare type actions.
+interface SuccessActions {
+  type: string,
+  payload: object,
 }
+interface FailureAction {
+  type: string,
+  error: object,
+}
+
+export type HomepageActionTypes = SuccessActions | FailureAction

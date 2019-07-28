@@ -1,22 +1,33 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { bindActionCreators } from 'redux/es/redux';
 import { connect } from 'react-redux';
 import * as actions from './actions';
 import './App.scss';
 
-type AppProps = {
+type HomepageProps = {
   actions: {
-    getData: Function
+    getListUser: () => void
   },
+  data: Array<{
+    id: string,
+    username: string,
+  }>,
   isLoadingData: boolean,
 }
-function App(props: AppProps): JSX.Element {
-  function handleClick() {
-    props.actions.getData();
+function Homepage(props: HomepageProps): JSX.Element {
+  const { data, isLoadingData } = props;
+  useEffect(() => {
+    props.actions.getListUser();
+  }, [props.actions]);
+
+  if (isLoadingData && !data) {
+    return (<div>Data is loading...</div>);
   }
   return (
-    <div className='App'>
-      <button onClick={handleClick} disabled={props.isLoadingData}>Click me</button>
+    <div className='home-containers'>
+      {data && <ul>
+        {data.map(dt => <li key={dt.id}>{dt.username}</li>)}
+      </ul>}
     </div>
   );
 }
@@ -28,4 +39,4 @@ const mapDispatchToProps = dispatch => ({
   actions: bindActionCreators({ ...actions }, dispatch),
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(Homepage);

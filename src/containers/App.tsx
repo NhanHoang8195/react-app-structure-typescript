@@ -8,11 +8,11 @@ type RootProps = {
   store: object,
 }
 // All routes define here.
-const Root: React.FC<RootProps> = ({ store }) => (<Provider store={store}>
+const App: React.FC<RootProps> = ({ store }) => (<Provider store={store}>
   <Router>
     <Route exact path='/' component={Home} />
     <Route path={'/admin'} component={Admin} />
   </Router>
 </Provider>);
 
-export default Root;
+export default App;

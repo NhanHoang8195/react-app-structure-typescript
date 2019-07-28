@@ -1,24 +1,25 @@
 import { Map } from 'immutable';
 import {
-  HOME_GET_DATA_START,
-  HOME_GET_DATA_SUCCESS,
-  HOME_GET_DATA_FAILURE,
+  GET_LIST_USER_START,
+  GET_LIST_USER_SUCCESS,
+  GET_LIST_USER_FAILURE,
+  HomepageState
 } from './type';
 
-const initialState = Map({
+const initialState: HomepageState = Map( {
   data: null,
   isLoadingData: false,
   error: null,
 });
 const handlerMaps = {};
 
-handlerMaps[HOME_GET_DATA_START] = (state) => {
+handlerMaps[GET_LIST_USER_START] = (state): HomepageState => {
   return state.set('isLoadingData', true);
 };
-handlerMaps[HOME_GET_DATA_SUCCESS] = (state, action) => {
+handlerMaps[GET_LIST_USER_SUCCESS] = (state, action): HomepageState => {
   return state.set('isLoadingData', false).set('data', action.payload);
 };
-handlerMaps[HOME_GET_DATA_FAILURE] = (state, action) => {
+handlerMaps[GET_LIST_USER_FAILURE] = (state, action): HomepageState => {
   return state.set('isLoadingData', false).set('error', action.error);
 };
 
